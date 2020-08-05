@@ -1,0 +1,34 @@
+<!-- <a class="ran-one-theme-header-btn" routerLink="/messages">
+    <nz-badge [nzCount]="unReadMessageCount" [nzOffset]="[3,-3]">
+        <i class="ran-one-theme-header-btn-icon" nz-icon nzType="message" nzTheme="outline"></i>
+    </nz-badge>
+</a> -->
+
+
+<a class="ran-one-theme-header-btn" nz-dropdown nzTrigger="click" [nzDropdownMenu]="accountInfoDropdownMenu">
+    <nz-avatar nzIcon="user" nzSrc='/assets/images/default-avatar.png'></nz-avatar>
+    <span>{{(currentUser$|async).userName}}</span>
+</a>
+<nz-dropdown-menu #accountInfoDropdownMenu="nzDropdownMenu">
+    <ul nz-menu>
+        <li nz-menu-item routerLink="/account/manage-profile">
+            {{'AbpAccount::ManageYourProfile' | abpLocalization }}
+        </li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item (click)="logout()">
+            {{'AbpUi::Logout' | abpLocalization}}
+        </li>
+    </ul>
+</nz-dropdown-menu>
+
+<a class="ran-one-theme-header-btn" nz-dropdown nzTrigger="click" [nzDropdownMenu]="languagesDropdownMenu">
+    <i class="ran-one-theme-header-btn-icon" nz-icon nzType="global" nzTheme="outline"></i>
+</a>
+<nz-dropdown-menu #languagesDropdownMenu="nzDropdownMenu">
+    <ul nz-menu nzSelectable>
+        <li nz-menu-item *ngFor="let item of languages$| async" [nzSelected]="item?.cultureName===selectedLangCulture"
+            (click)="onChangeLang(item.cultureName)">
+            {{item.cultureName}} {{item.displayName}}
+        </li>
+    </ul>
+</nz-dropdown-menu>

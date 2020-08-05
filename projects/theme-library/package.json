@@ -1,0 +1,7 @@
+{
+  "name": "@ran-ng/theme-library",
+  "version": "1.0.3",
+  "publishConfig": {
+    "access": "public"
+  }
+}

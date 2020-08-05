@@ -1,0 +1,239 @@
+import { ABP, ConfigState } from '@abp/ng.core';
+import { Injectable } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Store } from '@ngxs/store';
+import { SetFirstClassNavigationState, SetNavigationState, SetThreeClassNavigationState, SetTwoClassNavigationState } from '../actions/navigation.action';
+import { Application } from '../models/application';
+import { FirstClassNavigation } from '../models/navigation';
+import { RanThemeLibraryNavigationState } from '../states/navigation.state';
+import { ApplicationService } from './application.service';
+
+/**
+ * ran-theme-library模块划分导航service
+ * service将ABP的导航重新规整，共划分为三级导航，通过子导航是否有parentName用于划分第二级：
+ * 1.单一顶部导航型
+ * ====适用于功能模块少，但模块下功能比较复杂的类型
+ * ====twoClassNavigations
+ * 2.单一左侧导航型
+ * ====适用于功能模块多，系统功能较简单的类型
+ * ====threeClassNavigations
+ * 3.全能型顶部左侧导航型
+ * ====适用于:适用于功能模块多，系统功能多的类型
+ * ====twoClassNavigations，threeClassNavigations
+ */
+@Injectable()
+export class NavgationService {
+
+    constructor(
+        private store: Store,
+        private router: Router,
+        private applicationService: ApplicationService
+    ) {
+    }
+
+    getNavigationUrlByRoute(route: ABP.FullRoute): string {
+        const routes = this.getChildRoutes(route.children, []);
+        for (const _route of routes) {
+            /**
+             *  去掉判断是否隐藏，如果是隐藏一样可以进行跳转 && !_route.invisible
+             */
+            if (this.getGrantedPolicy(_route.requiredPolicy) && _route.url) {
+                return _route.url;
+            }
+        }
+        return route.url || route.path || '';
+    }
+
+
+    setNavigations() {
+        const { routes } = this.store.selectSnapshot(ConfigState.getAll);
+        const _routes = this.getRoutes(routes, []);
+        this.store.dispatch(new SetNavigationState(_routes));
+    }
+
+    /**
+     * 设置app顶部九宫格导航，默认为路由第一级
+     */
+    setFirstClassNavations() {
+        const { routes } = this.store.selectSnapshot(ConfigState.getAll);
+        // 没做权限限制
+        // const _routes = this.getRoutesByGranted(routes);
+        this.applicationService.getTenantApplications().subscribe(result => {
+            const navigations = this.getFirstClassNavations(routes, result.items);
+            this.store.dispatch(new SetFirstClassNavigationState(navigations));
+        });
+    }
+
+
+    /**
+     * 监听路由变更事件
+     * @param event angular路由事件
+     */
+    setNavigationsByRouteEvent(event: NavigationEnd) {
+        let url = event.url;
+
+        if (url === '/') {
+            url = event.urlAfterRedirects;
+        }
+
+        const segmentGroup = this.router.parseUrl(url).root.children.primary;
+        const navigations = this.store.selectSnapshot(RanThemeLibraryNavigationState.getNavigationState);
+        const segments = segmentGroup ? segmentGroup.segments : [];
+
+        if (!segments.length) {
+            this.setTwoAndThreeNavigations([]);
+            return;
+        }
+
+        // 查找一级菜单中匹配的项
+        const route = navigations.find(m => m.path === segments[0].path);
+        // 如果不可见
+        if (route && route.invisible) {
+            this.setTwoAndThreeNavigations([]);
+            return false;
+        }
+
+        if (route && route.parentName) {
+            const __routes = navigations.filter(m => m.parentName === route.parentName);
+            this.setThreeNavigations(__routes);
+            this.setTwoNavigations([]);
+        } else {
+            this.setTwoAndThreeNavigations(route.children || []);
+        }
+    }
+
+    /**
+     * 设置topbar或者sidebar
+     * @param routes appbar中当前选中的路由
+     */
+    setTwoAndThreeNavigations(routes: ABP.FullRoute[]) {
+
+        const includes = routes.some(m => m.parentName);
+        // 是否包含parentName,如果包含，则设置
+        if (includes) {
+            this.setTwoNavigations(routes);
+            const route = routes.find(m => window.location.pathname.includes(m.path));
+            if (route && this.getRouteGranted(route)) {
+                this.setThreeNavigations(route.children);
+                return;
+            }
+
+            for (const _route of routes) {
+                if (this.getRouteGranted(route)) {
+                    this.setThreeNavigations(route.children);
+                    return;
+                }
+            }
+        } else {
+            this.setTwoNavigations([]);
+            this.setThreeNavigations(routes);
+        }
+    }
+
+    /**
+     * 设置app顶部导航，默认为选中第一级路由的子集
+     */
+    setTwoNavigations(routes: ABP.FullRoute[]) {
+        if (routes && routes.length === 1) {
+            routes = [];
+        }
+        this.store.dispatch(new SetTwoClassNavigationState(routes));
+    }
+
+    /**
+     * 设置app左侧导航，默认为选中的第二级的子集，也就是选中第一级的孙子
+     */
+    setThreeNavigations(routes: ABP.FullRoute[]) {
+        this.store.dispatch(new SetThreeClassNavigationState(routes));
+    }
+
+    private getFirstClassNavations(routes: ABP.FullRoute[], applications: Application.ITenantApplication[]): FirstClassNavigation[] {
+        const navigations: FirstClassNavigation[] = [];
+        for (const application of applications) {
+            const route = routes.find(m => m.name === application.applicationName);
+            if (route) {
+                navigations.push({ ...route, ...application });
+            }
+        }
+        return navigations;
+    }
+
+    private getRoutesByGranted(routes: ABP.FullRoute[]): ABP.FullRoute[] {
+        const _routers = [];
+        for (const item of routes) {
+            if (this.getRouteGranted(item)) {
+                _routers.push(item);
+            }
+        }
+        return _routers;
+    }
+
+    /**
+     * 判断路由是否授权
+     * @param item item
+     */
+    private getRouteGranted(item: ABP.FullRoute): boolean {
+
+        if (item.invisible) {
+            return false;
+        }
+
+        /**
+         * 如果没有权限，且无子集
+         * 如果有权限，且无子集
+         */
+        if (
+            (!item.requiredPolicy || item.requiredPolicy && this.getGrantedPolicy(item.requiredPolicy) && item.path) &&
+            (item.children === undefined || !item.children.length)
+        ) {
+            return true;
+        }
+
+        const routes = this.getChildRoutes(item.children, []);
+        for (const route of routes) {
+            if (route.requiredPolicy) {
+                if (this.getGrantedPolicy(route.requiredPolicy)) {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private getRoutes(routes: ABP.FullRoute[], newRoutes: ABP.FullRoute[] = []) {
+        if (routes && routes.length) {
+            for (const route of routes) {
+                newRoutes.push(route);
+                if (route.children && route.children.length) {
+                    this.getRoutes(route.children, newRoutes);
+                }
+            }
+        }
+        return newRoutes;
+    }
+
+    /**
+     * 获取最下级路由
+     * @param routes 根据路由子数据取最小级数据
+     * @param newRoutes 处理以后的数据存储对象
+     */
+    private getChildRoutes(routes: ABP.FullRoute[], newRoutes: ABP.FullRoute[]) {
+        if (routes && routes.length) {
+            for (const route of routes) {
+                if (route.children && route.children.length) {
+                    this.getChildRoutes(route.children, newRoutes);
+                } else {
+                    newRoutes.push(route);
+                }
+            }
+        }
+        return newRoutes;
+    }
+
+    private getGrantedPolicy(requiredPolicy: string): boolean {
+        return this.store.selectSnapshot(ConfigState.getGrantedPolicy(requiredPolicy));
+    }
+}

@@ -1,0 +1,31 @@
+<nz-layout class="app-layout app-layout-light">
+    <nz-header class="app-header">
+        <!-- <ran-one-theme-ant-navigations></ran-one-theme-ant-navigations> -->
+        <img class="logo" src="{{appInfo.logoUrl}}">
+
+        <span class="flex-spacer"></span>
+        <ran-one-theme-ant-navigations-header></ran-one-theme-ant-navigations-header>
+        <span class="flex-spacer"></span>
+
+        <ran-one-theme-ant-navigations-header-right-menu></ran-one-theme-ant-navigations-header-right-menu>
+    </nz-header>
+    <nz-layout class="app-content">
+        <!-- bug:sider在路由懒加载的时候会重新渲染 -->
+        <nz-sider nzBreakpoint nzTheme="light" [nzWidth]="(sidebar.navigations$|async).length? 240:0" nzCollapsible
+            [nzCollapsed]="!(sidebarState$|async)" [nzTrigger]="null">
+            <div class="app-content-collapsed-btn" [class.app-content-collapsed-text-right]='sidebarState$|async'>
+                <button nz-button nzType="primary" (click)="setSidebarState()">
+                    <i nz-icon [nzType]="!(sidebarState$|async) ? 'menu-unfold' : 'menu-fold'"></i>
+                </button>
+            </div>
+            <ran-one-theme-ant-navigations-sidebar #sidebar></ran-one-theme-ant-navigations-sidebar>
+        </nz-sider>
+        <nz-content
+            [@slideFromBottom]="outlet && outlet.isActivated && outlet.activatedRoute && outlet.activatedRoute.routeConfig.path">
+            <router-outlet #outlet="outlet"></router-outlet>
+        </nz-content>
+    </nz-layout>
+</nz-layout>
+
+<abp-confirmation></abp-confirmation>
+<abp-toast-container right="30px" bottom="30px"></abp-toast-container>

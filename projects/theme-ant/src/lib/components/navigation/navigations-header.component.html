@@ -1,0 +1,5 @@
+<div class="header-menu">
+    <a class="header-menu-item" *ngFor="let route of navigations$|async" (click)="navigationByRoute(route)">
+        {{route.name | abpLocalization}}
+    </a>
+</div>

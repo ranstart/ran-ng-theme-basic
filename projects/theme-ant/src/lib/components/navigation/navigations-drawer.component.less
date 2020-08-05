@@ -1,0 +1,68 @@
+.ran-one-theme-navigations-drawer {
+
+    overflow: hidden;
+
+    .ran-one-theme-navigations-drawer-header {
+        display: flex;
+        align-items: center;
+        height: 64px;
+        padding: 0 15px;
+
+        .ran-one-theme-navigations-drawer-header-btn-icon {
+            font-size: 20px;
+            padding: 0 15px;
+
+            &:hover {
+                background: rgba(0, 0, 0, .025);
+            }
+        }
+
+        .ran-one-theme-navigations-drawer-header-appname {
+            font-size: 16px;
+            margin-left: 0.5rem;
+            font-weight: 600;
+        }
+    }
+
+    .ran-one-theme-navigations-drawer-body {
+
+        padding: 15px;
+
+        .ran-one-theme-navigations {
+
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+
+            .ran-one-theme-navigation {
+                width: 92px;
+                height: 92px;
+                cursor: pointer;
+                margin-bottom: 14px;
+                text-align: center;
+
+                .ran-one-theme-navigation-logo-wrapper {
+                    display: block;
+                    height: 49px;
+
+                    .ran-one-theme-navigation-logo {
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 4px;
+                        box-shadow: 0 4px 16px 0 rgba(38, 38, 38, 0.12);
+                    }
+
+                    &:hover {
+                        transform: translateY(-4px);
+                        transition: all 0.3s ease;
+                    }
+                }
+
+                p {
+                    margin-top: 0.25rem;
+                    font-size: 0.86rem;
+                }
+            }
+        }
+    }
+}

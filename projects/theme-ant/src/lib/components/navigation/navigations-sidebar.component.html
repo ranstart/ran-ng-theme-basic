@@ -1,0 +1,30 @@
+<ul nz-menu nzMode="inline" nzTheme="light" [nzInlineCollapsed]="!(sidebarState$|async)">
+    <ng-container *ngFor="let item of navigations$|async"
+        [ngTemplateOutlet]="item?.children?.length ? dropdownRouteTemplate : defaultRouteTemplate"
+        [ngTemplateOutletContext]="{ $implicit: item }">
+    </ng-container>
+
+    <ng-template #dropdownRouteTemplate let-route>
+        <li nz-submenu [nzTitle]="route.name | abpLocalization " [nzIcon]="getIconClass(route)"
+            [nzOpen]="isOpened(route)" [abpPermission]="route.requiredPolicy">
+            <ul>
+                <li *ngFor="let item of route.children" nz-menu-item nzMatchRouter
+                    [abpPermission]="item.requiredPolicy">
+                    <a [routerLink]="[item.url]">
+                        <i nz-icon [nzType]="getIconClass(item)"></i>
+                        <span>{{ item.name | abpLocalization }}</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ng-template>
+
+    <ng-template #defaultRouteTemplate let-route>
+        <li nz-menu-item nzMatchRouter [abpPermission]="route.requiredPolicy">
+            <a [routerLink]="[route.url]">
+                <i nz-icon [nzType]="getIconClass(route)"></i>
+                <span>{{ route.name | abpLocalization }}</span>
+            </a>
+        </li>
+    </ng-template>
+</ul>
