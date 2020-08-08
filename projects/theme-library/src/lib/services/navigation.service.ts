@@ -2,9 +2,9 @@ import { ABP, ConfigState } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { SetFirstClassNavigationState, SetNavigationState, SetThreeClassNavigationState, SetTwoClassNavigationState } from '../actions/navigation.action';
+import { SetModuleNavigationState, SetNavigationState, SetThreeClassNavigationState, SetTwoClassNavigationState } from '../actions/navigation.action';
 import { Application } from '../models/application';
-import { FirstClassNavigation } from '../models/navigation';
+import { ModuleNavigation } from '../models/navigation';
 import { RanThemeLibraryNavigationState } from '../states/navigation.state';
 import { ApplicationService } from './application.service';
 
@@ -31,7 +31,7 @@ export class NavgationService {
     ) {
     }
 
-    getNavigationUrlByRoute(route: ABP.FullRoute): string {
+    getNavigationUrlByModule(route: ABP.FullRoute): string {
         const routes = this.getChildRoutes(route.children, []);
         for (const _route of routes) {
             /**
@@ -44,7 +44,24 @@ export class NavgationService {
         return route.url || route.path || '';
     }
 
+    getNavigationActiveByModule(url: string, route: ABP.FullRoute) {
+        if (url.includes(route.url)) {
+            return true;
+        } else {
+            if (route.children && route.children.length) {
+                for (const item of route.children) {
+                    return this.getNavigationActiveByModule(url, item);
+                }
+            } else {
+                return false;
+            }
+        }
+    }
 
+
+    /**
+     * 保存系统所有的导航
+     */
     setNavigations() {
         const { routes } = this.store.selectSnapshot(ConfigState.getAll);
         const _routes = this.getRoutes(routes, []);
@@ -52,15 +69,15 @@ export class NavgationService {
     }
 
     /**
-     * 设置app顶部九宫格导航，默认为路由第一级
+     * 设置模块导航，默认为路由第一级
      */
-    setFirstClassNavations() {
+    setModuleNavigations() {
         const { routes } = this.store.selectSnapshot(ConfigState.getAll);
         // 没做权限限制
         // const _routes = this.getRoutesByGranted(routes);
         this.applicationService.getTenantApplications().subscribe(result => {
-            const navigations = this.getFirstClassNavations(routes, result.items);
-            this.store.dispatch(new SetFirstClassNavigationState(navigations));
+            const navigations = this.getModuleNavigations(routes, result.items);
+            this.store.dispatch(new SetModuleNavigationState(navigations));
         });
     }
 
@@ -147,8 +164,8 @@ export class NavgationService {
         this.store.dispatch(new SetThreeClassNavigationState(routes));
     }
 
-    private getFirstClassNavations(routes: ABP.FullRoute[], applications: Application.ITenantApplication[]): FirstClassNavigation[] {
-        const navigations: FirstClassNavigation[] = [];
+    private getModuleNavigations(routes: ABP.FullRoute[], applications: Application.ITenantApplication[]): ModuleNavigation[] {
+        const navigations: ModuleNavigation[] = [];
         for (const application of applications) {
             const route = routes.find(m => m.name === application.applicationName);
             if (route) {

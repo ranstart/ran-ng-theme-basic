@@ -1,0 +1,7 @@
+<div class="header-menu">
+    <a class="header-menu-item" [class.active]="getActive(route)" *ngFor="let route of navigations$|async"
+        (click)="navigationByRoute(route)">
+        <img src="{{apiUrl}}{{route.icon}}">
+        <span>{{route.name | abpLocalization}}</span>
+    </a>
+</div>

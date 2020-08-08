@@ -4,17 +4,17 @@ import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { NzDrawerRef } from 'ng-zorro-antd';
-import { RanThemeLibraryNavigationState, NavgationService, FirstClassNavigation } from '@ran-ng/theme-library';
+import { RanThemeLibraryNavigationState, NavgationService, ModuleNavigation } from '@ran-ng/theme-library';
 
 @Component({
-    selector: 'ran-one-theme-ant-navigations-drawer',
-    templateUrl: './navigations-drawer.component.html',
-    styleUrls: ['./navigations-drawer.component.less']
+    selector: 'ran-theme-ant-module-navigations-drawer',
+    templateUrl: './module-navigations-drawer.component.html',
+    styleUrls: ['./module-navigations-drawer.component.less']
 })
-export class NavigationsDrawerComponent {
+export class ModuleNavigationsDrawerComponent {
 
-    @Select(RanThemeLibraryNavigationState.getFirstClassNavigationState)
-    navigations$: Observable<FirstClassNavigation[]>;
+    @Select(RanThemeLibraryNavigationState.getModuleNavigationState)
+    navigations$: Observable<ModuleNavigation[]>;
 
     get apiUrl() {
         return this.store.selectSnapshot(ConfigState.getApiUrl());
@@ -32,9 +32,8 @@ export class NavigationsDrawerComponent {
     ) {
     }
 
-    navigationByRoute(route: ABP.FullRoute) {
-        const url = this.appNavigationService.getNavigationUrlByRoute(route);
-        debugger
+    navigationByRoute(route: ModuleNavigation) {
+        const url = this.appNavigationService.getNavigationUrlByModule(route);
         this.router.navigateByUrl(url);
         this.close();
     }

@@ -215,6 +215,41 @@
           }
         }
       }
+    },
+    "theme-zero": {
+      "projectType": "library",
+      "root": "projects/theme-zero",
+      "sourceRoot": "projects/theme-zero/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/theme-zero/tsconfig.lib.json",
+            "project": "projects/theme-zero/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/theme-zero/src/test.ts",
+            "tsConfig": "projects/theme-zero/tsconfig.spec.json",
+            "karmaConfig": "projects/theme-zero/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/theme-zero/tsconfig.lib.json",
+              "projects/theme-zero/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "theme"

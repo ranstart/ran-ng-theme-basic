@@ -6,10 +6,10 @@ import { RanThemeLibraryNavigationState, RanThemeLibraryLayoutState } from '@ran
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'ran-one-theme-ant-navigations-sidebar',
-    templateUrl: './navigations-sidebar.component.html'
+    selector: 'ran-theme-ant-side-navigations',
+    templateUrl: './side-navigations.component.html'
 })
-export class NavigationsSidebarComponent {
+export class SideNavigationsComponent {
     @Select(RanThemeLibraryNavigationState.getThreeClassNavigationState)
     public navigations$: Observable<ABP.FullRoute[]>;
 

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NzDrawerService } from 'ng-zorro-antd';
-import { NavigationsDrawerComponent } from './navigations-drawer.component';
+import { ModuleNavigationsDrawerComponent } from './module-navigations-drawer.component';
 
 @Component({
-    selector: 'ran-one-theme-ant-navigations',
-    templateUrl: './navigations.component.html'
+    selector: 'ran-theme-ant-module-navigations-drawer-trigger',
+    templateUrl: './module-navigations-drawer-trigger.component.html'
 })
-export class NavigationsComponent {
+export class ModuleNavigationsDrawerTriggerComponent {
 
     constructor(
         private drawerService: NzDrawerService
@@ -19,7 +19,7 @@ export class NavigationsComponent {
             nzPlacement: 'left',
             nzWidth: 320,
             nzBodyStyle: { padding: 0 },
-            nzContent: NavigationsDrawerComponent
+            nzContent: ModuleNavigationsDrawerComponent
         });
     }
 }

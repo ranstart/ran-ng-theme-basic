@@ -13,10 +13,10 @@ export function setNavigationsAndFirstClassNavigatons(injector: Injector) {
     return new Promise<void>((resolve) => {
       const navigationService = injector.get(NavgationService);
       navigationService.setNavigations();
-      navigationService.setFirstClassNavations();
-      resolve()
-    })
-  }
+      navigationService.setModuleNavigations();
+      resolve();
+    });
+  };
   return fn;
 }
 

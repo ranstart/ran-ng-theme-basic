@@ -1,14 +1,14 @@
 import { ABP } from '@abp/ng.core';
-import { FirstClassNavigation } from '../models/navigation';
+import { ModuleNavigation } from '../models/navigation';
 
 export class SetNavigationState {
     static readonly type = '[SetNavigationState] Set';
     constructor(public payload: ABP.FullRoute[]) { }
 }
 
-export class SetFirstClassNavigationState {
-    static readonly type = '[SetFirstClassNavigationState] Set';
-    constructor(public payload: FirstClassNavigation[]) { }
+export class SetModuleNavigationState {
+    static readonly type = '[SetModuleNavigationState] Set';
+    constructor(public payload: ModuleNavigation[]) { }
 }
 
 export class SetTwoClassNavigationState {

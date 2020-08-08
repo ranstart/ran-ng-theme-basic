@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { SetContentScollEvent, SetSidebarState } from '../actions/layout.action';
+import { SetSidebarState } from '../actions/layout.action';
 import { LayoutState } from '../models/layout';
 
 @State<LayoutState>({
     name: 'RanThemeLibraryLayoutState',
-    defaults: { sidebarState: true, contentScrollEvent: null } as LayoutState
+    defaults: { sidebarState: true } as LayoutState
 })
 @Injectable()
 export class RanThemeLibraryLayoutState {
@@ -13,11 +13,6 @@ export class RanThemeLibraryLayoutState {
     @Selector()
     static getSidebarState({ sidebarState }: LayoutState): boolean {
         return sidebarState;
-    }
-
-    @Selector()
-    static getSidebarContentScoll({ contentScrollEvent }: LayoutState): Event {
-        return contentScrollEvent;
     }
 
     @Action(SetSidebarState)
@@ -28,10 +23,5 @@ export class RanThemeLibraryLayoutState {
             _sidebarState = payload;
         }
         patchState({ sidebarState: _sidebarState });
-    }
-
-    @Action(SetContentScollEvent)
-    setContentScollEvent({ getState, patchState }: StateContext<LayoutState>, { payload }: SetContentScollEvent) {
-        patchState({ contentScrollEvent: payload });
     }
 }

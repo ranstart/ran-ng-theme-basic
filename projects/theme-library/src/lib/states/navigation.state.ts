@@ -1,12 +1,12 @@
 import { ABP } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
-import { SetFirstClassNavigationState, SetNavigationState, SetThreeClassNavigationState, SetTwoClassNavigationState } from '../actions/navigation.action';
-import { FirstClassNavigation, NavigationState } from '../models/navigation';
+import { SetModuleNavigationState, SetNavigationState, SetThreeClassNavigationState, SetTwoClassNavigationState } from '../actions/navigation.action';
+import { ModuleNavigation, NavigationState } from '../models/navigation';
 
 @State<NavigationState>({
     name: 'RanThemeLibraryNavigationState',
-    defaults: { navigations: [], firstClassNavations: [], twoClassNavigations: [], threeClassNavigations: [] } as NavigationState
+    defaults: { navigations: [], moduleNavigations: [], twoClassNavigations: [], threeClassNavigations: [] } as NavigationState
 })
 @Injectable()
 export class RanThemeLibraryNavigationState {
@@ -17,8 +17,8 @@ export class RanThemeLibraryNavigationState {
     }
 
     @Selector()
-    static getFirstClassNavigationState({ firstClassNavations }: NavigationState): FirstClassNavigation[] {
-        return firstClassNavations;
+    static getModuleNavigationState({ moduleNavigations }: NavigationState): ModuleNavigation[] {
+        return moduleNavigations;
     }
 
     @Selector()
@@ -36,9 +36,9 @@ export class RanThemeLibraryNavigationState {
         patchState({ navigations: payload });
     }
 
-    @Action(SetFirstClassNavigationState)
-    setFirstClassNavigationState({ patchState }: StateContext<NavigationState>, { payload }: SetFirstClassNavigationState) {
-        patchState({ firstClassNavations: payload });
+    @Action(SetModuleNavigationState)
+    setModuleNavigationState({ patchState }: StateContext<NavigationState>, { payload }: SetModuleNavigationState) {
+        patchState({ moduleNavigations: payload });
     }
 
     @Action(SetTwoClassNavigationState)

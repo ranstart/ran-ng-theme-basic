@@ -1,0 +1,22 @@
+<div class="abp-account-layout bg-light">
+    <div class="page-bg" [style.background-image]="backgroundImage"></div>
+
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-md-7">
+                <div class="introductory-bg" [style.background-image]="backgroundImage">
+                    <h1>{{appInfo.name}}</h1>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="account-content">
+                    <img src="{{accountLogo}}" class="mx-auto d-block" style="max-height:70px;" />
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<abp-confirmation></abp-confirmation>
+<abp-toast-container right="30px" bottom="30px"></abp-toast-container>

@@ -4,13 +4,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "ran-theme-ant",
+      "ran-theme-zero",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "ran-theme-ant",
+      "ran-theme-zero",
       "kebab-case"
     ]
   }

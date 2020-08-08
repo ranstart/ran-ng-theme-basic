@@ -27,7 +27,7 @@ import { SharedModule } from './shared/shared.module';
 
 registerLocaleData(zh);
 
-const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
+const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: true })];
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,7 +46,7 @@ const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: false })];
     TenantManagementConfigModule,
     SettingManagementConfigModule,
 
-    MessagesLibraryConfigModule,
+    // MessagesLibraryConfigModule,
     MessagesConfigModule,
 
     BrowserModule,

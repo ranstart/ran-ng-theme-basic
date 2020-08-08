@@ -26,6 +26,12 @@
       "@ran-ng/theme-library/dev": [
         "projects/theme-library/src/public-api"
       ],
+      "theme-zero": [
+        "dist/theme-zero"
+      ],
+      "theme-zero/*": [
+        "dist/theme-zero/*"
+      ]
     }
   }
 }

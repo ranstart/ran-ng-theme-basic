@@ -1,0 +1,125 @@
+.abp-account-layout {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    a {
+        transition: all 0.25s linear;
+    }
+
+    a:hover,
+    a:focus {
+        color: #ed7600;
+    }
+
+    .text-shadows {
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        -moz-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        -webkit-text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        -webkit-font-smoothing: antialiased;
+    }
+
+    .box-shadows {
+        box-shadow: 0px 5px 25px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .mask-box {
+        position: absolute;
+        bottom: 0rem;
+        left: 0rem;
+        width: 100%;
+        height: 100%;
+        background: -webkit-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7));
+        background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+        /*FireFox*/
+        background: -o-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 100%);
+        /* Opear */
+        background: -ms-linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+        /*IE10及IE10+*/
+    }
+
+    ::-moz-selection {
+        background: #e4e64c;
+        color: #000;
+        text-shadow: none;
+    }
+
+    ::selection {
+        background: #e4e64c;
+        color: #000;
+        text-shadow: none;
+    }
+
+    /**账号页面背景**/
+    .page-bg {
+        -webkit-filter: blur(50px);
+        /* Chrome, Opera */
+        -moz-filter: blur(50px);
+        -ms-filter: blur(50px);
+        filter: blur(50px);
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 100%;
+        height: 100%;
+    }
+
+    @media all and (-ms-high-contrast: none),
+    (-ms-high-contrast: active) {
+        .page-bg {
+            background-image: none;
+        }
+    }
+
+    .introductory-bg {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position-x: center;
+        background-position-y: center;
+        text-align: center;
+        padding-top: 3rem;
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .account-content {
+        background-color: #fff;
+        padding-top: 3rem;
+
+        abp-tenant-box {
+            display: none;
+        }
+
+        .row {
+            margin: 0;
+
+            &>* {
+                max-width: 100% !important;
+                flex: 1 !important;
+                padding: 0;
+            }
+        }
+
+        .abp-account-container {
+            padding: px 0;
+            position: relative;
+            z-index: 2;
+            color: black;
+
+            .card {
+                border: none;
+
+                &.shadow-sm {
+                    box-shadow: none !important;
+                    margin: 0 !important;
+                }
+
+                &>.card-body {
+                    box-shadow: none !important;
+                }
+            }
+        }
+    }
+
+}

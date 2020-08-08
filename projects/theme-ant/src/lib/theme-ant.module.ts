@@ -7,11 +7,11 @@ import { NzAvatarModule, NzBadgeModule, NzBreadCrumbModule, NzButtonModule, NzDr
 import { AccountLayoutComponent } from './components/account-layout.component';
 import { ApplicationLayoutComponent } from './components/application-layout.component';
 import { EmptyLayoutComponent } from './components/empty-layout.component';
-import { NavigationsDrawerComponent } from './components/navigation/navigations-drawer.component';
-import { NavigationsHeaderRightMenuComponent } from './components/navigation/navigations-header-right-menu.component';
-import { NavigationsHeaderComponent } from './components/navigation/navigations-header.component';
-import { NavigationsSidebarComponent } from './components/navigation/navigations-sidebar.component';
-import { NavigationsComponent } from './components/navigation/navigations.component';
+import { HeaderRightComponent } from './components/header-right/header-right.component';
+import { ModuleNavigationsDrawerTriggerComponent } from './components/module-navigations/module-navigations-drawer-trigger.component';
+import { ModuleNavigationsDrawerComponent } from './components/module-navigations/module-navigations-drawer.component';
+import { ModuleNavigationsHeaderComponent } from './components/module-navigations/module-navigations-header.component';
+import { SideNavigationsComponent } from './components/side-navigations/side-navigations.component';
 import { ValidationErrorComponent } from './components/validation-error.component';
 import { InitialService } from './services/initial.service';
 
@@ -19,11 +19,11 @@ export const THEME_ANT_LAYOUTS = [ApplicationLayoutComponent, AccountLayoutCompo
 
 @NgModule({
   declarations: [
-    NavigationsComponent,
-    NavigationsHeaderComponent,
-    NavigationsDrawerComponent,
-    NavigationsSidebarComponent,
-    NavigationsHeaderRightMenuComponent,
+    HeaderRightComponent,
+    ModuleNavigationsDrawerTriggerComponent,
+    ModuleNavigationsDrawerComponent,
+    SideNavigationsComponent,
+    ModuleNavigationsHeaderComponent,
     ValidationErrorComponent,
     ...THEME_ANT_LAYOUTS
   ],
@@ -59,8 +59,8 @@ export const THEME_ANT_LAYOUTS = [ApplicationLayoutComponent, AccountLayoutCompo
     ...THEME_ANT_LAYOUTS
   ],
   entryComponents: [
-    NavigationsDrawerComponent,
-    ...THEME_ANT_LAYOUTS
+    ...THEME_ANT_LAYOUTS,
+    ModuleNavigationsDrawerComponent
   ]
 })
 export class ThemeAntModule {

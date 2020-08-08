@@ -3,9 +3,9 @@ import { Application } from './application';
 
 export interface NavigationState {
     navigations?: ABP.FullRoute[];
-    firstClassNavations?: FirstClassNavigation[];
+    moduleNavigations?: ModuleNavigation[];
     twoClassNavigations?: ABP.FullRoute[];
     threeClassNavigations?: ABP.FullRoute[];
 }
 
-export type FirstClassNavigation = Application.ITenantApplication & ABP.FullRoute
+export type ModuleNavigation = Application.ITenantApplication & ABP.FullRoute;

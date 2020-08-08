@@ -6,7 +6,7 @@ import { NavgationService, RanThemeLibraryLayoutState, SetSidebarState } from '@
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'ran-theme-ant-application-layout',
+    selector: 'ran-theme-zero-application-layout',
     templateUrl: './application-layout.component.html',
     styleUrls: ['./application-layout.component.less'],
     encapsulation: ViewEncapsulation.None,

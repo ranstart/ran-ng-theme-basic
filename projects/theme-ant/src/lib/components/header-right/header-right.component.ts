@@ -8,10 +8,10 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'ran-one-theme-ant-navigations-header-right-menu',
-    templateUrl: './navigations-header-right-menu.component.html',
+    selector: 'ran-theme-ant-header-right',
+    templateUrl: './header-right.component.html',
 })
-export class NavigationsHeaderRightMenuComponent implements OnInit {
+export class HeaderRightComponent implements OnInit {
 
     @Select(ConfigState.getOne('currentUser'))
     currentUser$: Observable<ApplicationConfiguration.CurrentUser>;
@@ -57,6 +57,6 @@ export class NavigationsHeaderRightMenuComponent implements OnInit {
         );
         this.store.dispatch(new GetAppConfiguration());
         // 重新设置app导航
-        this.appNavationService.setFirstClassNavations();
+        this.appNavationService.setModuleNavigations();
     }
 }
