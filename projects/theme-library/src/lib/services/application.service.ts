@@ -1,21 +1,21 @@
 import { Rest, RestService } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Application } from '../models/application';
+import { Abpone } from '../models/abpone';
 
 
 @Injectable()
-export class ApplicationService {
+export class ApplicationConfigrationService {
 
-    apiName = 'RanHome';
+    apiName = 'Abpone';
 
     constructor(private rest: RestService) { }
 
-    getTenantApplications(): Observable<Application.ITenantApplicationResponse> {
+    getApplicationConfigration(): Observable<Abpone.ApplicationConfigration> {
         const request: Rest.Request<null> = {
             method: 'GET',
-            url: `/api/Home/TenantApplication`,
+            url: `/api/abpone/application-configuration`,
         };
-        return this.rest.request<null, Application.ITenantApplicationResponse>(request, { apiName: this.apiName });
+        return this.rest.request<null, Abpone.ApplicationConfigration>(request, { apiName: this.apiName });
     }
 }

@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { SetModuleNavigationState, SetNavigationState, SetThreeClassNavigationState, SetTwoClassNavigationState } from '../actions/navigation.action';
-import { Application } from '../models/application';
+import { Abpone } from '../models/abpone';
 import { ModuleNavigation } from '../models/navigation';
 import { RanThemeLibraryNavigationState } from '../states/navigation.state';
-import { ApplicationService } from './application.service';
+import { ApplicationConfigrationService } from './application.service';
 
 /**
  * ran-theme-library模块划分导航service
@@ -27,7 +27,7 @@ export class NavgationService {
     constructor(
         private store: Store,
         private router: Router,
-        private applicationService: ApplicationService
+        private applicationConfigrationService: ApplicationConfigrationService
     ) {
     }
 
@@ -77,8 +77,8 @@ export class NavgationService {
         const { routes } = this.store.selectSnapshot(ConfigState.getAll);
         // 没做权限限制
         // const _routes = this.getRoutesByGranted(routes);
-        this.applicationService.getTenantApplications().subscribe(result => {
-            const navigations = this.getModuleNavigations(routes, result.items);
+        this.applicationConfigrationService.getApplicationConfigration().subscribe(result => {
+            const navigations = this.getModuleNavigations(routes, result.tenant.apps);
             this.store.dispatch(new SetModuleNavigationState(navigations));
         });
     }
@@ -166,14 +166,22 @@ export class NavgationService {
         this.store.dispatch(new SetThreeClassNavigationState(routes));
     }
 
-    private getModuleNavigations(routes: ABP.FullRoute[], applications: Application.ITenantApplication[]): ModuleNavigation[] {
+    private getModuleNavigations(routes: ABP.FullRoute[], apps: Abpone.ApplicationConfigrationTenantApp[]): ModuleNavigation[] {
         const navigations: ModuleNavigation[] = [];
-        for (const application of applications) {
-            const route = routes.find(m => m.name === application.applicationName);
-            if (route) {
-                navigations.push({ ...application, ...route });
+        for (const app of apps) {
+
+            // 如果url有值，则为外部链接
+            if (app.appUrl) {
+                navigations.push({ ...app, ...{ name: app.appName, path: app.appUrl }, ...{ isExternalLink: true } });
             } else {
-                navigations.push({ ...application, ...{ name: application.applicationName, path: application.url }, ...{ isExternalLink: true } });
+                // 查找route，如果有则说明是内部路由
+                const route = routes.find(m => m.name === app.appRouteName);
+                // 如果查询到
+                if (route) {
+                    navigations.push({ ...app, ...route });
+                } else {
+                    console.error(`app<${app.appName}>服务器端配置信息有误，请检查<appRouteName>或<appUrl>信息是否填写正确`, JSON.stringify(app));
+                }
             }
         }
         return navigations;

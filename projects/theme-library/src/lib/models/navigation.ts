@@ -1,14 +1,14 @@
 import { ABP } from '@abp/ng.core';
-import { Application } from './application';
+import { Abpone } from './abpone';
 
 export interface NavigationState {
-    navigations?: ABP.FullRoute[];
     moduleNavigations?: ModuleNavigation[];
     twoClassNavigations?: ABP.FullRoute[];
     threeClassNavigations?: ABP.FullRoute[];
+    navigations?: ABP.FullRoute[];
 }
 
-export type ModuleNavigation = Application.ITenantApplication & ABP.FullRoute & ModuleNavigationExtra;
+export type ModuleNavigation = Abpone.ApplicationConfigrationTenantApp & ABP.FullRoute & ModuleNavigationExtra;
 
 export interface ModuleNavigationExtra {
     isExternalLink?: boolean;

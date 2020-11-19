@@ -1,212 +1,213 @@
 :host {
-    display: flex;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .app-layout {
-    height: 100vh;
+  height: 100vh;
 
-    &.app-layout-light {
-        .app-header {
-            background: white;
-        }
+  &.app-layout-light {
+    .app-header {
+      background: white;
+    }
+  }
+
+  .app-header {
+    display: flex;
+    align-items: center;
+    padding: 0px 15px;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, .1);
+    overflow: hidden;
+
+    .logo {
+      margin-left: 0.5rem;
+      max-height: 65%;
     }
 
-    .app-header {
+    .ran-one-theme-header-btn,
+    .ran-one-theme-navigation-btn {
+      display: flex;
+      align-items: center;
+      color: black;
+      height: 100%;
+      padding: 0 15px;
+      cursor: pointer;
+      transition: all .3s;
+
+      &:hover {
+        background: rgba(0, 0, 0, .025);
+      }
+    }
+
+    .header-menu {
+      display: flex;
+      list-style: none;
+
+      .header-menu-item {
         display: flex;
         align-items: center;
-        padding: 0px 15px;
-        position: fixed;
-        width: 100%;
-        z-index: 999;
-        box-shadow: 0 0 8px 0 rgba(0, 0, 0, .1);
-        overflow: hidden;
+        text-decoration: none;
+        color: black;
+        padding: 0 15px;
+        margin-bottom: 2px;
+        border-bottom: 2px solid transparent;
+        transition: all .2s;
 
-        .logo {
-            margin-left: 0.5rem;
-            max-height: 65%;
+        img {
+          width: 22px;
         }
 
-        .ran-one-theme-header-btn,
-        .ran-one-theme-navigation-btn {
-            display: flex;
-            align-items: center;
-            color: black;
-            height: 100%;
-            padding: 0 15px;
-            cursor: pointer;
-            transition: all .3s;
-
-            &:hover {
-                background: rgba(0, 0, 0, .025);
-            }
+        span {
+          margin-left: 5px;
         }
 
-        .header-menu {
-            list-style: none;
-
-            .header-menu-item {
-                display: flex;
-                align-items: center;
-                text-decoration: none;
-                color: black;
-                padding: 0 15px;
-                margin-bottom: 2px;
-                border-bottom: 2px solid transparent;
-                transition: all .2s;
-
-                img {
-                    width: 22px;
-                }
-
-                span {
-                    margin-left: 5px;
-                }
-
-                &:hover,
-                &.active {
-                    border-color: #3370ff;
-                }
-            }
+        &:hover,
+        &.active {
+          border-color: #3370ff;
         }
-
-        ran-theme-ant-module-navigations-drawer-trigger {
-            height: 100%;
-
-            .ran-one-theme-navigation-btn {
-                font-size: 20px;
-            }
-        }
-
-        .ran-one-theme-header-btn {
-            .ran-one-theme-header-btn-icon {
-                font-size: 16px;
-            }
-        }
-
-        ran-theme-ant-header-right {
-            display: flex;
-            align-items: center;
-            height: 64px;
-
-            nz-avatar {
-                margin-right: 8px;
-            }
-
-            nz-avatar+h6 {
-                margin: 0;
-            }
-
-        }
-
-        .flex-spacer {
-            flex-grow: 1;
-        }
+      }
     }
 
-    .app-content {
-        margin-top: 64px;
+    ran-theme-ant-module-navigations-drawer-trigger {
+      height: 100%;
 
-        .app-content-collapsed-btn {
-            text-align: center;
-            padding: 10px;
-        }
-
-        .app-content-collapsed-text-right {
-            text-align: right;
-        }
-
-        &>nz-sider {
-            display: block;
-            height: 100%;
-            overflow-x: hidden;
-            overflow-y: hidden;
-
-            &:hover {
-                overflow-y: auto;
-            }
-
-            [nz-menu] {
-                border-right: 0;
-            }
-
-            .sider-menu {
-                height: 100%;
-                border-right: 0;
-            }
-        }
-
-        &>nz-content {
-            padding: 15px;
-        }
+      .ran-one-theme-navigation-btn {
+        font-size: 20px;
+      }
     }
+
+    .ran-one-theme-header-btn {
+      .ran-one-theme-header-btn-icon {
+        font-size: 16px;
+      }
+    }
+
+    ran-theme-ant-header-right {
+      display: flex;
+      align-items: center;
+      height: 64px;
+
+      nz-avatar {
+        margin-right: 8px;
+      }
+
+      nz-avatar+h6 {
+        margin: 0;
+      }
+
+    }
+
+    .flex-spacer {
+      flex-grow: 1;
+    }
+  }
+
+  .app-content {
+    margin-top: 64px;
+
+    .app-content-collapsed-btn {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .app-content-collapsed-text-right {
+      text-align: right;
+    }
+
+    &>nz-sider {
+      display: block;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: hidden;
+
+      &:hover {
+        overflow-y: auto;
+      }
+
+      [nz-menu] {
+        border-right: 0;
+      }
+
+      .sider-menu {
+        height: 100%;
+        border-right: 0;
+      }
+    }
+
+    &>nz-content {
+      padding: 15px;
+    }
+  }
 }
 
 ran-theme-ant-header-right-load-message {
-    &>* {
-        display: flex;
-        align-items: center;
-        flex-direction: row;
-        padding: 0 15px;
-        cursor: pointer;
+  &>* {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 0 15px;
+    cursor: pointer;
 
-        .ran-message-avatar {
-            height: 36px;
-            width: 36px;
-            margin-right: 15px;
-            background-position: 50%;
-            background-repeat: no-repeat;
-            background-size: cover;
-            border-radius: 3px;
-        }
-
-        .ran-message-info {
-            flex: 1;
-            overflow: hidden;
-            font-size: 14px;
-
-            .ran-message-info-header,
-            .ran-message-info-body {
-                margin: 0;
-            }
-
-            .ran-message-info-header {
-
-                display: flex;
-                justify-content: space-between;
-
-                .ran-message-info-header-time {
-                    color: #8c8c8c;
-                    font-size: 12px;
-                    margin-left: 5px;
-                }
-            }
-
-            .ran-message-info-body {
-                display: flex;
-                justify-content: space-between;
-
-                .ran-message-info-body-des {
-                    color: #a7a7a7;
-                    font-size: 12px;
-                }
-
-                .ran-message-info-body-count {
-                    height: 18px;
-                    min-width: 18px;
-                    margin-left: 8px;
-                    padding: 0 3px;
-                    font-size: 12px;
-                    line-height: 18px;
-                    text-align: center;
-                    background-color: #1b9aee;
-                    border-radius: 18px;
-                    color: #fff;
-                }
-            }
-        }
+    .ran-message-avatar {
+      height: 36px;
+      width: 36px;
+      margin-right: 15px;
+      background-position: 50%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      border-radius: 3px;
     }
+
+    .ran-message-info {
+      flex: 1;
+      overflow: hidden;
+      font-size: 14px;
+
+      .ran-message-info-header,
+      .ran-message-info-body {
+        margin: 0;
+      }
+
+      .ran-message-info-header {
+
+        display: flex;
+        justify-content: space-between;
+
+        .ran-message-info-header-time {
+          color: #8c8c8c;
+          font-size: 12px;
+          margin-left: 5px;
+        }
+      }
+
+      .ran-message-info-body {
+        display: flex;
+        justify-content: space-between;
+
+        .ran-message-info-body-des {
+          color: #a7a7a7;
+          font-size: 12px;
+        }
+
+        .ran-message-info-body-count {
+          height: 18px;
+          min-width: 18px;
+          margin-left: 8px;
+          padding: 0 3px;
+          font-size: 12px;
+          line-height: 18px;
+          text-align: center;
+          background-color: #1b9aee;
+          border-radius: 18px;
+          color: #fff;
+        }
+      }
+    }
+  }
 
 }

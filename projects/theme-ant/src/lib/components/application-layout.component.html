@@ -1,33 +1,35 @@
 <nz-layout class="app-layout app-layout-light">
 
-    <nz-header class="app-header">
-        <!-- <ran-one-theme-ant-navigations></ran-one-theme-ant-navigations> -->
-        <img class="logo" src="{{appInfo.logoUrl}}">
+  <nz-header class="app-header">
+    <ran-theme-ant-module-navigations-drawer *ngIf='navigationPosition==="drawer"'>
+    </ran-theme-ant-module-navigations-drawer>
+    <img class="logo" src="{{appInfo.logoUrl}}">
 
-        <span class="flex-spacer"></span>
-        <ran-theme-ant-module-navigations-header></ran-theme-ant-module-navigations-header>
-        <span class="flex-spacer"></span>
+    <span class="flex-spacer"></span>
+    <ran-theme-ant-module-navigations-header *ngIf='navigationPosition==="header"'>
+    </ran-theme-ant-module-navigations-header>
+    <span class="flex-spacer"></span>
 
-        <ran-theme-ant-header-right></ran-theme-ant-header-right>
-    </nz-header>
+    <ran-theme-ant-header-right></ran-theme-ant-header-right>
+  </nz-header>
 
 
-    <nz-layout class="app-content">
-        <!-- bug:sider在路由懒加载的时候会重新渲染 -->
-        <nz-sider nzBreakpoint nzTheme="light" [nzWidth]="(sidebar.navigations$|async).length? 240:0" nzCollapsible
-            [nzCollapsed]="!(sidebarState$|async)" [nzTrigger]="null">
-            <div class="app-content-collapsed-btn" [class.app-content-collapsed-text-right]='sidebarState$|async'>
-                <button nz-button nzType="primary" (click)="setSidebarState()">
-                    <i nz-icon [nzType]="!(sidebarState$|async) ? 'menu-unfold' : 'menu-fold'"></i>
-                </button>
-            </div>
-            <ran-theme-ant-side-navigations #sidebar></ran-theme-ant-side-navigations>
-        </nz-sider>
-        <nz-content
-            [@slideFromBottom]="outlet && outlet.isActivated && outlet.activatedRoute && outlet.activatedRoute.routeConfig.path">
-            <router-outlet #outlet="outlet"></router-outlet>
-        </nz-content>
-    </nz-layout>
+  <nz-layout class="app-content">
+    <!-- bug:sider在路由懒加载的时候会重新渲染 -->
+    <nz-sider nzBreakpoint nzTheme="light" [nzWidth]="(sidebar.navigations$|async).length? 240:0" nzCollapsible
+      [nzCollapsed]="!(sidebarState$|async)" [nzTrigger]="null">
+      <div class="app-content-collapsed-btn" [class.app-content-collapsed-text-right]='sidebarState$|async'>
+        <button nz-button nzType="primary" (click)="setSidebarState()">
+          <i nz-icon [nzType]="!(sidebarState$|async) ? 'menu-unfold' : 'menu-fold'"></i>
+        </button>
+      </div>
+      <ran-theme-ant-side-navigations #sidebar></ran-theme-ant-side-navigations>
+    </nz-sider>
+    <nz-content
+      [@slideFromBottom]="outlet && outlet.isActivated && outlet.activatedRoute && outlet.activatedRoute.routeConfig.path">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </nz-content>
+  </nz-layout>
 </nz-layout>
 
 <abp-confirmation></abp-confirmation>

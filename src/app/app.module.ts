@@ -13,11 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { AccountConfigModule } from '@ran-ng/account-config';
-import { MessagesLibraryConfigModule } from '@ran-ng/messages';
 import { MessagesConfigModule } from '@ran-ng/messages-config';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { NZ_I18N, zh_CN } from 'ng-zorro-antd';
-import { THEME_ANT_LAYOUTS } from '../../projects/theme-zero/src/public-api';
+import { THEME_ANT_LAYOUTS, ThemeAntModule } from '../../projects/theme-ant/src/public-api';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,7 +47,6 @@ const LOGGERS = [NgxsLoggerPluginModule.forRoot({ disabled: true })];
 
     // MessagesLibraryConfigModule,
     MessagesConfigModule,
-
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,

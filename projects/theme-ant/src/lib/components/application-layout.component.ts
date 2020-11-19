@@ -1,9 +1,11 @@
 import { Config, ConfigState, eLayoutType } from '@abp/ng.core';
 import { slideFromBottom } from '@abp/ng.theme.shared';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, InjectFlags, Injector, OnInit, ViewEncapsulation } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { NavgationService, RanThemeLibraryLayoutState, SetSidebarState } from '@ran-ng/theme-library';
 import { Observable } from 'rxjs';
+import { ThemeAnt } from '../models/theme-ant';
+import { THEME_ANT_TOKEN } from '../tokens/theme-ant.token';
 
 @Component({
     selector: 'ran-theme-ant-application-layout',
@@ -23,10 +25,20 @@ export class ApplicationLayoutComponent implements OnInit {
         return this.store.selectSnapshot(ConfigState.getApplicationInfo);
     }
 
+    navigationPosition = 'header';
+
     constructor(
+        injector: Injector,
         private store: Store,
         private navigationService: NavgationService
     ) {
+        const options = injector.get<ThemeAnt.ThemeAntOptions>(THEME_ANT_TOKEN, {}, InjectFlags.Optional);
+        if (options &&
+            options.navigationPosition &&
+            options.navigationPosition !== 'header'
+        ) {
+            this.navigationPosition = options.navigationPosition;
+        }
     }
 
     ngOnInit() {

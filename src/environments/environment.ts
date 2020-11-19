@@ -2,24 +2,24 @@ export const environment = {
   production: false,
   hmr: false,
   application: {
-    name: 'teambition',
+    name: 'Abpone',
     logoUrl: 'https://g.alicdn.com/teambition/web/teambition/images/tb-logo.62eaedbd.svg',
   },
   oAuthConfig: {
-    issuer: 'https://localhost:44306',
-    clientId: 'LinyiChurujing_App',
+    issuer: 'https://localhost:44335',
+    clientId: 'Abpone_ConsoleTestApp',
     dummyClientSecret: '1q2w3e*',
-    scope: 'LinyiChurujing',
+    scope: 'Abpone',
     showDebugInformation: true,
     oidc: false,
     requireHttps: false,
   },
   apis: {
     default: {
-      url: 'https://localhost:44306',
+      url: 'https://localhost:44335',
     },
   },
   localization: {
-    defaultResourceName: 'LinyiChurujing',
+    defaultResourceName: 'Abpone',
   },
 };

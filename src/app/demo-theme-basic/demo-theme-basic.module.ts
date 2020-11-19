@@ -4,14 +4,14 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DemoThemeBasicRoutingModule } from './demo-theme-basic-routing.module';
 import { DemoThemeBasicComponent } from './demo-theme-basic.component';
-import { ThemeZeroModule } from 'projects/theme-zero/src/public-api';
+import { ThemeAntModule } from 'projects/theme-ant/src/public-api';
 
 @NgModule({
     imports: [
         CommonModule,
         ReactiveFormsModule,
         CoreModule,
-        ThemeZeroModule,
+        ThemeAntModule,
         DemoThemeBasicRoutingModule,
     ],
     declarations: [

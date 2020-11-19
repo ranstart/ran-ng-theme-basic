@@ -1,19 +1,31 @@
 <div class="ran-one-theme-navigations-drawer">
-    <div class="ran-one-theme-navigations-drawer-header">
-        <a class="ran-one-theme-navigations-drawer-header-btn-icon" (click)='close()'>
-            <i nz-icon nzType="icon-apps" nzTheme="outline"></i>
-        </a>
-        <span class="ran-one-theme-navigations-drawer-header-appname">{{appInfo.name}}</span>
-    </div>
-    <div class="ran-one-theme-navigations-drawer-body">
-        <div class="ran-one-theme-navigations">
-            <div class="ran-one-theme-navigation" *ngFor="let route of navigations$|async"
-                (click)='navigationByRoute(route)'>
-                <span class="ran-one-theme-navigation-logo-wrapper" title="{{route.name| abpLocalization}}">
-                    <img class="ran-one-theme-navigation-logo" src="{{apiUrl}}{{route.icon}}">
-                </span>
-                <p class="">{{route.name | abpLocalization}}</p>
-            </div>
-        </div>
-    </div>
+  <div class="ran-one-theme-navigations-drawer-header">
+    <a class="ran-one-theme-navigations-drawer-header-btn-icon" (click)='close()'>
+      <i nz-icon nzType="icon-apps" nzTheme="outline"></i>
+    </a>
+    <span class="ran-one-theme-navigations-drawer-header-appname">{{appInfo.name}}</span>
+  </div>
+  <div class="ran-one-theme-navigations-drawer-body">
+    <div class="ran-one-theme-navigations">
+      <ng-container *ngFor="let app of navigations$|async">
+        <ng-container *ngIf="app.isExternalLink">
+          <a class="ran-one-theme-navigation" [abpPermission]="app.requiredPolicy" [href]='app.appUrl'>
+            <span class="ran-one-theme-navigation-logo-wrapper" title="{{app.appName}}">
+              <img class="ran-one-theme-navigation-logo" [src]="app.icon">
+            </span>
+            <p class="">{{app.appName}}</p>
+          </a>
+        </ng-container>
+        <ng-container *ngIf="!app.isExternalLink">
+          <div class="ran-one-theme-navigation" [abpPermission]="app.requiredPolicy" (click)='navigationByRoute(app)'>
+            <span class="ran-one-theme-navigation-logo-wrapper" title="{{app.appName}}">
+              <img class="ran-one-theme-navigation-logo" [src]="app.icon">
+            </span>
+            <p class="">{{app.appName}}</p>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div> *ngIf="!app.isExternalLink"
+    [class.active]="getActive(app)" (click)="navigationByRoute(app)"
+  </div>
 </div>

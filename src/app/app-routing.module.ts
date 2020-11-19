@@ -17,7 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./demo-theme-basic/demo-theme-basic.module').then(m => m.DemoThemeBasicModule),
     data: {
       routes: {
-        name: '::Menu:Theme',
+        name: 'Ran:Theme',
         path: 'theme',
         order: 3,
         layout: eLayoutType.application,

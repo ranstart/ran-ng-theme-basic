@@ -30,7 +30,7 @@
     "@ran-ng/messages": "^2.0.0-beta.1.2",
     "@ran-ng/messages-config": "^2.0.1",
     "@ran-ng/messages-library": "^2.0.0-beta.1",
-    "@ran-ng/theme-library": "^1.0.6",
+    "@ran-ng/theme-library": "^1.0.8",
     "font-awesome": "^4.7.0",
     "ng-zorro-antd": "^8.5.2",
     "rxjs": "~6.4.0",

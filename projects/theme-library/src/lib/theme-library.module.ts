@@ -5,7 +5,7 @@ import { filter } from 'rxjs/operators';
 import { NavgationService } from './services/navigation.service';
 import { RanThemeLibraryNavigationState } from './states/navigation.state';
 import { RanThemeLibraryLayoutState } from './states/layout.state';
-import { ApplicationService } from './services/application.service';
+import { ApplicationConfigrationService } from './services/application.service';
 
 
 export function setNavigationsAndFirstClassNavigatons(injector: Injector) {
@@ -25,7 +25,7 @@ export function setNavigationsAndFirstClassNavigatons(injector: Injector) {
   imports: [NgxsModule.forFeature([RanThemeLibraryNavigationState, RanThemeLibraryLayoutState])],
   providers: [
     NavgationService,
-    ApplicationService,
+    ApplicationConfigrationService,
     /**
      * bug:未调用权限内的菜单
      */

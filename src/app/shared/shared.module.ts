@@ -3,21 +3,21 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { ThemeSharedModule } from '@abp/ng.theme.shared';
 import { NgxValidateCoreModule } from '@ngx-validate/core';
-import { ThemeZeroModule } from 'projects/theme-zero/src/lib/theme-zero.module';
+import { ThemeAntModule } from 'projects/theme-ant/src/lib/theme-ant.module';
 
 @NgModule({
   declarations: [],
   imports: [
     CoreModule,
     ThemeSharedModule,
-    ThemeZeroModule,
+    ThemeAntModule,
     NgbDropdownModule,
     NgxValidateCoreModule,
   ],
   exports: [
     CoreModule,
     ThemeSharedModule,
-    ThemeZeroModule,
+    ThemeAntModule,
     NgbDropdownModule,
     NgxValidateCoreModule,
   ],
