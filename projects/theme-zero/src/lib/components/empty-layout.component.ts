@@ -2,7 +2,7 @@ import { eLayoutType } from '@abp/ng.core';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'ran-one-empty-empty-layout',
+    selector: 'ran-theme-zero-empty-empty-layout',
     templateUrl: './empty-layout.component.html',
 })
 export class EmptyLayoutComponent {

@@ -34,6 +34,6 @@ export class ModuleNavigationsHeaderComponent {
     }
 
     getActive(route: ModuleNavigation) {
-        return this.appNavigationService.getNavigationActiveByModule(location.href, route);
+        return this.appNavigationService.getNavigationActiveByModule(this.router.url, route);
     }
 }

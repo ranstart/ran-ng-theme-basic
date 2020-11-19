@@ -32,7 +32,7 @@ export class HeaderRightComponent implements OnInit {
     constructor(
         private store: Store,
         private oauthService: OAuthService,
-        private appNavationService: NavgationService,
+        private appNavationService: NavgationService
         // private messageService: MessageService
     ) {
     }

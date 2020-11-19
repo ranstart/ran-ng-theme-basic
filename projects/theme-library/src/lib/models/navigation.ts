@@ -8,4 +8,8 @@ export interface NavigationState {
     threeClassNavigations?: ABP.FullRoute[];
 }
 
-export type ModuleNavigation = Application.ITenantApplication & ABP.FullRoute;
+export type ModuleNavigation = Application.ITenantApplication & ABP.FullRoute & ModuleNavigationExtra;
+
+export interface ModuleNavigationExtra {
+    isExternalLink?: boolean;
+}

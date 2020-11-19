@@ -45,12 +45,14 @@ export class NavgationService {
     }
 
     getNavigationActiveByModule(url: string, route: ABP.FullRoute) {
-        if (url.includes(route.url)) {
+        if (url.startsWith(route.url)) {
             return true;
         } else {
             if (route.children && route.children.length) {
                 for (const item of route.children) {
-                    return this.getNavigationActiveByModule(url, item);
+                    if (this.getNavigationActiveByModule(url, item)) {
+                        return true;
+                    }
                 }
             } else {
                 return false;
@@ -169,7 +171,9 @@ export class NavgationService {
         for (const application of applications) {
             const route = routes.find(m => m.name === application.applicationName);
             if (route) {
-                navigations.push({ ...route, ...application });
+                navigations.push({ ...application, ...route });
+            } else {
+                navigations.push({ ...application, ...{ name: application.applicationName, path: application.url }, ...{ isExternalLink: true } });
             }
         }
         return navigations;

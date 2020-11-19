@@ -6,6 +6,9 @@ import { Application } from '../models/application';
 
 @Injectable()
 export class ApplicationService {
+
+    apiName = 'RanHome';
+
     constructor(private rest: RestService) { }
 
     getTenantApplications(): Observable<Application.ITenantApplicationResponse> {
@@ -13,6 +16,6 @@ export class ApplicationService {
             method: 'GET',
             url: `/api/Home/TenantApplication`,
         };
-        return this.rest.request<null, Application.ITenantApplicationResponse>(request);
+        return this.rest.request<null, Application.ITenantApplicationResponse>(request, { apiName: this.apiName });
     }
 }

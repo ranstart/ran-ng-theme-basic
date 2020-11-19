@@ -1,7 +1,15 @@
 <div class="header-menu">
-    <a class="header-menu-item" [class.active]="getActive(route)" *ngFor="let route of navigations$|async"
-        (click)="navigationByRoute(route)">
-        <img src="{{apiUrl}}{{route.icon}}">
-        <span>{{route.name | abpLocalization}}</span>
-    </a>
+    <ng-container *ngFor="let route of navigations$|async">
+        <ng-container *ngIf="!route.invisible">
+            <a class="header-menu-item" [abpPermission]="route.requiredPolicy" *ngIf="!route.isExternalLink" [class.active]="getActive(route)"
+                (click)="navigationByRoute(route)" >
+                <img src="{{apiUrl}}{{route.icon}}">
+                <span>{{route.name | abpLocalization}}</span>
+            </a>
+            <a class="header-menu-item" [abpPermission]="route.requiredPolicy" *ngIf="route.isExternalLink && route.url" [href]="route.url">
+                <img src="{{apiUrl}}{{route.icon}}">
+                <span>{{route.name | abpLocalization}}</span>
+            </a>
+        </ng-container>
+    </ng-container>
 </div>

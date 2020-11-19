@@ -3,7 +3,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngxs/store';
 
 @Component({
-    selector: 'ran-theme-ant-account-layout',
+    selector: 'ran-theme-zero-account-layout',
     templateUrl: './account-layout.component.html',
     styleUrls: ['./account-layout.component.less'],
     encapsulation: ViewEncapsulation.None

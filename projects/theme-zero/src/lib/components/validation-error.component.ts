@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { Validation, ValidationErrorComponent as ErrorComponent } from '@ngx-validate/core';
 
 @Component({
-  selector: 'ran-theme-ant-validation-error',
+  selector: 'ran-theme-zero-validation-error',
   template: `
     <div class="invalid-feedback" *ngFor="let error of abpErrors; trackBy: trackByFn">
       {{ error.message | abpLocalization: error.interpoliteParams }}

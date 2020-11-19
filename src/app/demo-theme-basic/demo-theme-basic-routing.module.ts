@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DemoThemeBasicComponent } from './demo-theme-basic.component';
-import { ApplicationLayoutComponent } from '@ran-one/ng.theme-ant';
+import { ApplicationLayoutComponent } from '../../../projects/theme-ant/src/public-api';
 
 const routes: Routes = [
     { path: '', redirectTo: 'light', pathMatch: 'full' },
